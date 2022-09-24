@@ -41,9 +41,18 @@ pub struct StartStuffOff <'info> {
 pub struct AddGif<'info> {
   #[account(mut)]
   pub base_account: Account<'info, BaseAccount>,
+  #[account(mut)]
+  pub user: Signer<'info>,
+}
+
+#[derive(Debug, Clone, AnchorSerialize, AnchorDeserialize)]
+pub struct ItemStruct {
+    pub gif_link: String,
+    pub user_address: Pubkey,
 }
 
 #[account]
 pub struct BaseAccount {
     pub total_gifs: u64,
+    pub gif_list: Vec<ItemStruct>,
 }
